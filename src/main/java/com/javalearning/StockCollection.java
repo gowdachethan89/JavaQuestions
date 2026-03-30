@@ -7,6 +7,10 @@ import java.util.*;
  * getting useful statistics about the stock's prices.
  */
 class StockCollection {
+  /**
+   * Data for a collection of price records for a particular stock, and methods for
+   * getting useful statistics about the stock's prices.
+   */
   ArrayList<PriceRecord> priceRecords = new ArrayList<>(); // list of PriceRecord objects, the price records for this particular stock
   Stock stock; // Stock, the Stock this StockCollection is for
 
@@ -44,33 +48,31 @@ class StockCollection {
       return -1.0;
     }
     else{
-    double total = priceRecords.stream().mapToInt(record -> record.price).sum();
-    return total / priceRecords.size();
+      double total = priceRecords.stream().mapToInt(record -> record.price).sum();
+      return total / priceRecords.size();
     }
   }
-  
+
   Object[] getBiggestChange(){
-    if (priceRecords.size() < 2) return null;
     List<PriceRecord> sorted = new ArrayList<>(priceRecords);
     sorted.sort(Comparator.comparing(p -> p.date));
-    String startDate = "";
-    String endDate = "";
-    int maxChange = 0;
-    int maxAbs = 0;
-    
-    for(int i = 1; i < sorted.size(); i++) {
-        PriceRecord prev = sorted.get(i - 1);
-        PriceRecord curr = sorted.get(i);
-        
-        int change = curr.price - prev.price;
-        int absChange = Math.abs(change);
-        if (absChange > maxAbs) {
-            maxAbs = absChange;
-            maxChange = change;
-            startDate = prev.date;
-            endDate = curr.date;
-        }
+    String startDate="";
+    String endDate="";
+    int maxChange = Integer.MIN_VALUE;
+
+    for(int i= 1 ; i< sorted.size() ; i++)
+    {
+      PriceRecord prev = sorted.get(i - 1);
+      PriceRecord curr = sorted.get(i);
+
+      int change = curr.price - prev.price;
+      if(change > maxChange)
+      {
+        maxChange = change;
+        startDate = prev.date;
+        endDate = curr.date;
+      }
     }
-    return new Object[] {maxChange, startDate, endDate};
+    return new Object[] {maxChange , startDate, endDate};
   }
 }
