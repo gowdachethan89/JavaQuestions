@@ -1,10 +1,8 @@
 package com.alti;
 
-import java.io.*;
-import java.util.*;
 import org.junit.*;
 
-public class Solution {
+public class StockCollectionTest {
   
   @Test
   public void testPriceRecord() {
