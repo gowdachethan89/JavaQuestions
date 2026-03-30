@@ -1,5 +1,7 @@
 package com.alti.gym;
 
+import org.junit.Test;
+
 import java.util.Map;
 
 import static org.junit.Assert.assertFalse;
@@ -9,12 +11,8 @@ public class GymTest {
     This is not a complete test suite, but tests some basic functionality of
     the code and shows how to use it.
 */
-    public static void main(String[] args) {
-        testMember();
-        testMembership();
-    }
-
-    public static void testMember() {
+    @Test
+    public void testMember() {
         System.out.println("Running testMember");
         Member testMember = new Member(1, "John Doe", MembershipStatus.BRONZE);
         assert testMember.memberId == 1 :
@@ -25,7 +23,8 @@ public class GymTest {
                 "membership status should be BRONZE, was " + testMember.membershipStatus;
     }
 
-    public static void testMembership() {
+    @Test
+    public void testMembership() {
         System.out.println("Running testMembership");
         Membership testMembership = new Membership();
         Member testMember = new Member(1, "John Doe", MembershipStatus.BRONZE);
@@ -59,7 +58,9 @@ public class GymTest {
         assert Math.abs(attendanceStats.conversionRate - 60.00) < 0.1 :
                 "conversion rate should be 60.00, was " + attendanceStats.conversionRate;
     }
-    public static void testGetAverageWorkoutDurations() {
+
+    @Test
+    public void testGetAverageWorkoutDurations() {
         System.out.println("Running testGetAverageWorkoutDurations");
         Membership testMembership = new Membership();
         Member testMember1 = new Member(12, "John Doe", MembershipStatus.SILVER);

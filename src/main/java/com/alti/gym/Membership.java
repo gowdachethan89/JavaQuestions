@@ -3,6 +3,7 @@ package com.alti.gym;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class Membership {
     /*
@@ -48,9 +49,9 @@ class Membership {
         for(Member member : members){
             if(member.memberId == id){
                 List<Integer> list = new ArrayList<>();
-                list.add(workout.getId);
-                list.add(workout.getStartTime);
-                list.add(workout.getEndTime);
+                list.add(workout.getId());
+                list.add(workout.getStartTime());
+                list.add(workout.getEndTime());
                 if(!map.containsKey(id)){
                     map.put(id,list);
                 }
@@ -60,5 +61,4 @@ class Membership {
         }
 
     }
-
 }
