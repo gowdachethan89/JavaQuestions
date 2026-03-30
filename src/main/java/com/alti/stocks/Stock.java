@@ -1,4 +1,4 @@
-package com.alti;
+package com.alti.stocks;
 
 class Stock {
   /** Data about a particular stock. */

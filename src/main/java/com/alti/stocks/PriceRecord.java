@@ -1,4 +1,4 @@
-package com.alti;
+package com.alti.stocks;
 
 class PriceRecord {
   /** Data and methods about a single price record of a stock. */
