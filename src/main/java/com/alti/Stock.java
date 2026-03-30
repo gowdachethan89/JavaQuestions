@@ -1,4 +1,4 @@
-package com.javalearning;
+package com.alti;
 
 class Stock {
   /** Data about a particular stock. */
@@ -22,3 +22,4 @@ class Stock {
     return java.util.Objects.hash(symbol, name);
   }
 }
+

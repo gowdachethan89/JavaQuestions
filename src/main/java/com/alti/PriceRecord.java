@@ -1,4 +1,4 @@
-package com.javalearning;
+package com.alti;
 
 class PriceRecord {
   /** Data and methods about a single price record of a stock. */
@@ -12,3 +12,4 @@ class PriceRecord {
     this.date = date;
   }
 }
+

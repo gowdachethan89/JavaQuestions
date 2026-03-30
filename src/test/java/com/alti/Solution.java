@@ -1,4 +1,4 @@
-package com.javalearning;
+package com.alti;
 
 import java.io.*;
 import java.util.*;
@@ -84,3 +84,4 @@ public class Solution {
     Assert.assertArrayEquals(new Object[] { -30, "1999-12-30", "2000-01-01" }, stockCollection.getBiggestChange());
   }
 }
+

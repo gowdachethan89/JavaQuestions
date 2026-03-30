@@ -1,4 +1,4 @@
-package com.javalearning;
+package com.alti;
 
 import java.util.*;
 
@@ -7,10 +7,6 @@ import java.util.*;
  * getting useful statistics about the stock's prices.
  */
 class StockCollection {
-  /**
-   * Data for a collection of price records for a particular stock, and methods for
-   * getting useful statistics about the stock's prices.
-   */
   ArrayList<PriceRecord> priceRecords = new ArrayList<>(); // list of PriceRecord objects, the price records for this particular stock
   Stock stock; // Stock, the Stock this StockCollection is for
 
@@ -76,3 +72,4 @@ class StockCollection {
     return new Object[] {maxChange , startDate, endDate};
   }
 }
+
