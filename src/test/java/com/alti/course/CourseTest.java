@@ -29,7 +29,6 @@ public class CourseTest {
         }
     }
 
-    @Test
     public RunCollection makeRunCollection(Course course, int[][] obstacleData) {
         // Create a new RunCollection for test purposes.
         // Params:
@@ -47,6 +46,7 @@ public class CourseTest {
         return runCollection;
     }
 
+    @Test
     public void testRunCollection() {
         // Tests basic RunCollection functionality
 
