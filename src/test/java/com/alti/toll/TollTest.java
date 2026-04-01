@@ -1,12 +1,14 @@
 package com.alti.toll;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class TollTest {
 
@@ -16,7 +18,7 @@ public class TollTest {
         try (
                 BufferedReader reader = new BufferedReader(
                         new FileReader("D:/Workspace/Practice/java/Java Learning/src/test/resources/tollbooth_small.log")
-                );
+                )
         ) {
             LogFile logFile = new LogFile(reader);
             assertEquals(13, logFile.size());
