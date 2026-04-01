@@ -50,11 +50,13 @@ class StockCollection {
   }
 
   Object[] getBiggestChange(){
+    if(priceRecords.isEmpty()) return null;
     List<PriceRecord> sorted = new ArrayList<>(priceRecords);
     sorted.sort(Comparator.comparing(p -> p.date));
     String startDate="";
     String endDate="";
     int maxChange = Integer.MIN_VALUE;
+    int maxAbs = Integer.MIN_VALUE;
 
     for(int i= 1 ; i< sorted.size() ; i++)
     {
@@ -62,8 +64,10 @@ class StockCollection {
       PriceRecord curr = sorted.get(i);
 
       int change = curr.price - prev.price;
-      if(change > maxChange)
+      int absChange = Math.abs(change);
+      if(absChange > maxAbs)
       {
+        maxAbs = absChange;
         maxChange = change;
         startDate = prev.date;
         endDate = curr.date;
