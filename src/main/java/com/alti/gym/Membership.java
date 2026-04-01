@@ -61,4 +61,8 @@ class Membership {
         }
 
     }
+
+    public Map<Integer, Double> getAverageWorkoutDurations() {
+        return null;
+    }
 }
