@@ -1,6 +1,9 @@
 package com.alti.stocks;
 
-import org.junit.*;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StockCollectionTest {
   
@@ -11,9 +14,9 @@ public class StockCollectionTest {
     Stock testStock = new Stock("AAPL", "Apple Inc.");
     PriceRecord testPriceRecord = new PriceRecord(testStock, 100, "2023-07-01");
 
-    Assert.assertEquals(testPriceRecord.stock, testStock);
-    Assert.assertEquals(testPriceRecord.price, 100);
-    Assert.assertEquals(testPriceRecord.date, "2023-07-01");
+    assertEquals(testPriceRecord.stock, testStock);
+    assertEquals(100, testPriceRecord.price);
+    assertEquals("2023-07-01", testPriceRecord.date);
   }
 
   private static StockCollection makeStockCollection(Stock stock, Object[][] priceData) {
@@ -32,10 +35,10 @@ public class StockCollectionTest {
     Stock testStock = new Stock("AAPL", "Apple Inc.");
     StockCollection stockCollection = new StockCollection(testStock);
 
-    Assert.assertEquals(0, stockCollection.getNumPriceRecords());
-    Assert.assertEquals(-1, stockCollection.getMaxPrice());
-    Assert.assertEquals(-1, stockCollection.getMinPrice());
-    Assert.assertEquals(-1.0, stockCollection.getAvgPrice(), 0.001);
+    assertEquals(0, stockCollection.getNumPriceRecords());
+    assertEquals(-1, stockCollection.getMaxPrice());
+    assertEquals(-1, stockCollection.getMinPrice());
+    assertEquals(-1.0, stockCollection.getAvgPrice(), 0.001);
 
     /*
      * Price Records: Price: 110 112 90 105 Date: 2023-06-29 2023-07-01 2023-06-28
@@ -46,10 +49,10 @@ public class StockCollectionTest {
     testStock = new Stock("AAPL", "Apple Inc.");
     stockCollection = makeStockCollection(testStock, priceData);
 
-    Assert.assertEquals(priceData.length, stockCollection.getNumPriceRecords());
-    Assert.assertEquals(112, stockCollection.getMaxPrice());
-    Assert.assertEquals(90, stockCollection.getMinPrice());
-    Assert.assertEquals(104.25, stockCollection.getAvgPrice(), 0.1);
+    assertEquals(priceData.length, stockCollection.getNumPriceRecords());
+    assertEquals(112, stockCollection.getMaxPrice());
+    assertEquals(90, stockCollection.getMinPrice());
+    assertEquals(104.25, stockCollection.getAvgPrice(), 0.1);
   }
   
   @Test
@@ -59,7 +62,7 @@ public class StockCollectionTest {
     Stock testStock = new Stock("AAPL", "Apple Inc.");
     StockCollection stockCollection = new StockCollection(testStock);
 
-    Assert.assertNull(stockCollection.getBiggestChange());
+    assertNull(stockCollection.getBiggestChange());
 
     /*
      * Price Records: Price: 110 112 90 105 Date: 2023-06-29 2023-07-01 2023-06-25
@@ -69,7 +72,7 @@ public class StockCollectionTest {
         { 105, "2023-07-06" } };
     stockCollection = makeStockCollection(testStock, priceData);
 
-    Assert.assertArrayEquals(new Object[] { 20, "2023-06-25", "2023-06-29" }, stockCollection.getBiggestChange());
+    assertArrayEquals(new Object[] { 20, "2023-06-25", "2023-06-29" }, stockCollection.getBiggestChange());
 
     /*
      * Price Records: Price: 200 210 190 180 Date: 2000-01-04 1999-12-30 2000-01-03
@@ -79,7 +82,7 @@ public class StockCollectionTest {
         { 180, "2000-01-01" } };
     stockCollection = makeStockCollection(testStock, priceData2);
 
-    Assert.assertArrayEquals(new Object[] { -30, "1999-12-30", "2000-01-01" }, stockCollection.getBiggestChange());
+    assertArrayEquals(new Object[] { -30, "1999-12-30", "2000-01-01" }, stockCollection.getBiggestChange());
   }
 }
 
