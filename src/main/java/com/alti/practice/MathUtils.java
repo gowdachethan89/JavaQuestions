@@ -2,16 +2,19 @@ package com.alti.practice;
 
 import java.util.List;
 
-class MathUtils {
+public class MathUtils {
     public double calculateAverage(List<Integer> numbers) {
-        if (numbers == null || numbers.isEmpty()) {
+        // Bug 1: Is this check sufficient?
+        if (numbers == null) {
             return 0.0;
         }
 
-        long sum = 0;
+        int sum = 0; // Bug 2: Think about large values
         for (int number : numbers) {
             sum += number;
         }
-        return (double) sum / numbers.size();
+
+        // Bug 3: Precision and potential runtime exceptions
+        return sum / numbers.size();
     }
 }
