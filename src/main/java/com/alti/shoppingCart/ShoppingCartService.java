@@ -17,9 +17,6 @@ public class ShoppingCartService {
         for (double price : prices) {
             total += price;
         }
-        if (total > threshold) {
-            total = total * taxPercentage;
-        }
         return total;
     }
 }

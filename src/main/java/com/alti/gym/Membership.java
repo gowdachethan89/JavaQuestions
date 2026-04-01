@@ -11,8 +11,6 @@ class Membership {
         use to perform any queries or updates.
     */
     public List<Member> members;
-    // Add this field to store workouts per member
-    private final Map<Integer, List<Workout>> memberWorkouts = new HashMap<>();
 
     public Membership() {
         members = new ArrayList<>();
@@ -47,34 +45,24 @@ class Membership {
         return new MembershipStatistics(totalMembers, totalPaidMembers, conversionRate);
     }
     public void addWorkout(int id, Workout workout){
-        //Check if the member exists
-        boolean memberExists = false;
+        HashMap<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
         for(Member member : members){
             if(member.memberId == id){
-                memberExists = true;
-                break;
+                List<Integer> list = new ArrayList<>();
+                list.add(workout.getId());
+                list.add(workout.getStartTime());
+                list.add(workout.getEndTime());
+                if(!map.containsKey(id)){
+                    map.put(id,list);
+                }
+
             }
+
         }
-        // If member exists, add the workout to their list
-        if (memberExists){
-            memberWorkouts.computeIfAbsent(id, k -> new ArrayList<>()).add(workout);
-        }
-        // If not, ignore as per requirements
+
     }
 
     public Map<Integer, Double> getAverageWorkoutDurations() {
-        Map<Integer, Double> averageDurations = new HashMap<>();
-        for (Map.Entry<Integer, List<Workout>> entry : memberWorkouts.entrySet()) {
-            List<Workout> workouts = entry.getValue();
-            if (!workouts.isEmpty()) {
-                double totalDuration = 0.0;
-                for (Workout workout : workouts) {
-                    totalDuration += workout.getDuration();
-                }
-                double averageDuration = totalDuration / workouts.size();
-                averageDurations.put(entry.getKey(), averageDuration);
-            }
-        }
-        return averageDurations;
+        return null;
     }
 }

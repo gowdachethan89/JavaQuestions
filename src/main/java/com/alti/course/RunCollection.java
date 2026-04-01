@@ -27,6 +27,6 @@ class RunCollection {
 
     public int personalBest() {
         // Returns the best finish time achieved in this RunCollection
-        return runs.stream().filter(r -> r.complete).mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
+        return runs.stream().mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
     }
 }
