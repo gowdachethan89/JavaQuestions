@@ -18,11 +18,13 @@ class LogFile {
 
     public LogFile(BufferedReader reader) throws IOException {
         this.logEntries = new ArrayList<>();
-        String line = reader.readLine();
-        while (line != null) {
-            LogEntry logEntry = new LogEntry(line.strip());
-            this.logEntries.add(logEntry);
-            line = reader.readLine();
+        if (reader != null) {
+            String line = reader.readLine();
+            while (line != null) {
+                LogEntry logEntry = new LogEntry(line.strip());
+                this.logEntries.add(logEntry);
+                line = reader.readLine();
+            }
         }
     }
 
@@ -48,7 +50,8 @@ class LogFile {
 
     public List<String> catchSpeeders() {
         List<String> speeders = new ArrayList<>();
-        
+        List<List<LogEntry>> violatedJourneysByPlate = new ArrayList<>();
+
         // Group entries by license plate
         Map<String, List<LogEntry>> journeysByPlate = new HashMap<>();
         for (LogEntry entry : logEntries) {
@@ -66,10 +69,14 @@ class LogFile {
             for (List<LogEntry> journey : journeys) {
                 if (hasSpeedViolation(journey)) {
                     speeders.add(licensePlate);
+                    violatedJourneysByPlate.add(journey);
                 }
             }
         }
-        
+        System.out.println("Violated Journeys:");
+        violatedJourneysByPlate.forEach(journey -> {
+            System.out.println("  Entry: " + journey.get(0) + " -> Exit: " + journey.get(journey.size() - 1));
+        });
         return speeders;
     }
     
