@@ -1,6 +1,9 @@
 package com.alti.gym;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -101,5 +104,51 @@ public class GymTest {
         assert Math.abs(averageDurations.get(31) - 72.5) < 0.1 :
                 "average duration for member 31 should be 72.5, was " + averageDurations.get(31);
         assertFalse(averageDurations.containsKey(4));
+    }
+
+    public static void testGetDuePayments() {
+        System.out.println("Running testGetDuePayments");
+        // Test get_due_payments function
+        Membership testMembership = new Membership();
+        testMembership.addMember(new Member(1, "John Doe", MembershipStatus.BRONZE));
+        testMembership.addMember(new Member(2, "Alex C", MembershipStatus.SILVER));
+        testMembership.addMember(new Member(3, "Marie C", MembershipStatus.GOLD));
+
+        // Add workouts for members
+        Map<Integer, List<Workout>> memberWorkouts = new HashMap<>();
+        memberWorkouts.put(1, Arrays.asList(
+                new Workout(1, 500, 700), new Workout(10, 300, 350), new Workout(12, 10, 20),
+                new Workout(3, 50, 90), new Workout(6, 130, 150), new Workout(15, 900, 920)
+        ));
+        memberWorkouts.put(2, Arrays.asList(
+                new Workout(13, 510, 540), new Workout(14, 600, 700), new Workout(2, 15, 35),
+                new Workout(4, 100, 155), new Workout(18, 200, 225), new Workout(8, 1050, 1155)
+        ));
+        memberWorkouts.put(3, Arrays.asList(
+                new Workout(5, 120, 135), new Workout(17, 140, 190), new Workout(9, 210, 255),
+                new Workout(11, 400, 450), new Workout(16, 910, 940), new Workout(7, 1000, 1100)
+        ));
+
+        for (Map.Entry<Integer, List<Workout>> entry : memberWorkouts.entrySet()) {
+            int memberId = entry.getKey();
+            List<Workout> workoutList = entry.getValue();
+            for (Workout workout : workoutList) {
+                testMembership.addWorkout(memberId, workout);
+            }
+        }
+
+        Map<Integer, Integer> duePayments = testMembership.getDuePayments();
+        assert Math.abs(duePayments.get(1) - 50.0) < 0.1 :
+                "due payment for member 1 should be 50.0, was " + duePayments.get(1);
+        assert Math.abs(duePayments.get(2) - 32.0) < 0.1 :
+                "due payment for member 2 should be 32.0, was " + duePayments.get(2);
+        assert Math.abs(duePayments.get(3) - 6.0) < 0.1 :
+                "due payment for member 3 should be 6.0, was " + duePayments.get(3);
+
+        // Test member with no workouts
+        testMembership.addMember(new Member(4, "Ron Burgundy", MembershipStatus.SILVER));
+        Map<Integer, Integer> duePayments2 = testMembership.getDuePayments();
+        assert Math.abs(duePayments2.get(4) - 0.0) < 0.1 :
+                "due payment for member 4 should be 0.0, was " + duePayments2.get(4);
     }
 }

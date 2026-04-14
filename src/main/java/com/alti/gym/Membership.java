@@ -45,24 +45,15 @@ class Membership {
         return new MembershipStatistics(totalMembers, totalPaidMembers, conversionRate);
     }
     public void addWorkout(int id, Workout workout){
-        HashMap<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
-        for(Member member : members){
-            if(member.memberId == id){
-                List<Integer> list = new ArrayList<>();
-                list.add(workout.getId());
-                list.add(workout.getStartTime());
-                list.add(workout.getEndTime());
-                if(!map.containsKey(id)){
-                    map.put(id,list);
-                }
-
-            }
-
-        }
 
     }
 
     public Map<Integer, Double> getAverageWorkoutDurations() {
+        return null;
+    }
+
+    public Map<Integer, Integer> getDuePayments(){
+
         return null;
     }
 }
