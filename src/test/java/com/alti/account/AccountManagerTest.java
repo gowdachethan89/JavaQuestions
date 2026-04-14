@@ -15,7 +15,7 @@ public class AccountManagerTest {
     }
 
     private static void assertAlmost(double expected, double actual, double eps) {
-        assertTrue("Expected " + expected + " but got " + actual, Math.abs(expected - actual) <= eps);
+        assertTrue(Math.abs(expected - actual) <= eps, "Expected " + expected + " but got " + actual);
     }
 
     public static void testGetBalance_basic() {
