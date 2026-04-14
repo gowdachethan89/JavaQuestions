@@ -69,12 +69,12 @@ public class AccountManagerTest {
         mgr.addTransaction(new Transaction(202, 2, TransactionType.DEBIT, 5.5, 2015));
         mgr.addTransaction(new Transaction(203, 2, TransactionType.DEBIT, 14.5, 2020));
 
-//        Map<Integer, Double> avg = mgr.getAverageTransactionAmountByAccount();
-//
-//        assertAlmost(40.0, avg.get(1), 0.0001);
-//        assertAlmost(33.3333, avg.get(2), 0.0001);
-//
-//        // Account 3 has no transactions -> should not be present
-//        assertFalse(avg.containsKey(3));
+        Map<Integer, Double> avg = mgr.getAverageTransactionAmountByAccount();
+
+        assertAlmost(40.0, avg.get(1), 0.0001);
+        assertAlmost(33.3333, avg.get(2), 0.0001);
+
+        // Account 3 has no transactions -> should not be present
+        assertFalse(avg.containsKey(3));
     }
 }
