@@ -61,4 +61,26 @@ public class AccountManager {
         return balance;
     }
 
+    Map<Integer, Double> getAverageTransactionAmountByAccount() {
+        Map<Integer, Double> sumAccount = new HashMap<>();
+        Map<Integer, Integer> countTransactions = new HashMap<>();
+
+        for(Transaction transaction: transactions) {
+            Double amount = Math.abs(transaction.amount);
+            int accountId = transaction.accountId;
+            if(sumAccount.containsKey(accountId)){
+                sumAccount.put(accountId, sumAccount.get(accountId) + amount);
+                countTransactions.put(accountId, countTransactions.get(accountId) + 1);
+            } else {
+                sumAccount.put(accountId, amount);
+                countTransactions.put(accountId, 1);
+            }
+        }
+        Map<Integer, Double> averages = new HashMap<>();
+        for(Map.Entry<Integer, Double> entry: sumAccount.entrySet()) {
+            int accountId = entry.getKey();
+            averages.put(accountId, sumAccount.get(accountId)/countTransactions.get(accountId));
+        }
+        return averages;
+    }
 }
