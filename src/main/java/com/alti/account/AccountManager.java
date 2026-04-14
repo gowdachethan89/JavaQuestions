@@ -61,4 +61,7 @@ public class AccountManager {
         return balance;
     }
 
+    public Map<Integer, Double> getAverageTransactionAmountByAccount() {
+        return null;
+    }
 }
