@@ -1,9 +1,6 @@
 package com.alti.gym;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 class Membership {
     /*
@@ -11,8 +8,8 @@ class Membership {
         use to perform any queries or updates.
     */
     public List<Member> members;
-    // Add this field to store workouts per member
-    private final Map<Integer, List<Workout>> memberWorkouts = new HashMap<>();
+
+    public Map<Integer, List<Workout>> workoutDataMap = new HashMap<>();
 
     public Membership() {
         members = new ArrayList<>();
@@ -47,34 +44,49 @@ class Membership {
         return new MembershipStatistics(totalMembers, totalPaidMembers, conversionRate);
     }
     public void addWorkout(int id, Workout workout){
-        //Check if the member exists
-        boolean memberExists = false;
-        for(Member member : members){
-            if(member.memberId == id){
-                memberExists = true;
-                break;
-            }
+        boolean memberExists = members.stream().map(member -> member.memberId).toList().contains(id);
+        if(memberExists) {
+            workoutDataMap.putIfAbsent(id, new ArrayList<>());
+            workoutDataMap.get(id).add(workout);
         }
-        // If member exists, add the workout to their list
-        if (memberExists){
-            memberWorkouts.computeIfAbsent(id, k -> new ArrayList<>()).add(workout);
-        }
-        // If not, ignore as per requirements
     }
 
     public Map<Integer, Double> getAverageWorkoutDurations() {
-        Map<Integer, Double> averageDurations = new HashMap<>();
-        for (Map.Entry<Integer, List<Workout>> entry : memberWorkouts.entrySet()) {
-            List<Workout> workouts = entry.getValue();
-            if (!workouts.isEmpty()) {
-                double totalDuration = 0.0;
-                for (Workout workout : workouts) {
-                    totalDuration += workout.getDuration();
+        Map<Integer, Double> averageWorkouts = new HashMap<>();
+        for(Integer memberId: workoutDataMap.keySet()){
+            List<Workout> workouts = workoutDataMap.get(memberId);
+            double totalWorkout = workouts.stream()
+                    .map(workout -> workout.getEndTime() - workout.getStartTime())
+                    .mapToDouble(duration -> duration).sum();
+            double averageDuration = totalWorkout/workouts.size();
+            averageWorkouts.put(memberId, averageDuration);
+        }
+        return averageWorkouts;
+    }
+
+    public Map<Integer, Integer> getDuePayments(){
+        Map<Integer, Integer> dues = new HashMap<>();
+        for(Integer memberId: workoutDataMap.keySet()){
+            List<Workout> workouts = workoutDataMap.get(memberId);
+            int totalWorkoutInHours = (int)workouts.stream()
+                    .map(workout ->
+                            Math.ceil((double) (workout.getEndTime() - workout.getStartTime()) /60)
+                    )
+                    .mapToDouble(duration -> duration).sum();
+
+            Optional<Member> member = members.stream().filter(m -> m.memberId == memberId).findFirst();
+            if(member.isPresent()){
+                if(member.get().membershipStatus == MembershipStatus.BRONZE){
+                    dues.put(memberId, (totalWorkoutInHours - 1) * 10);
                 }
-                double averageDuration = totalDuration / workouts.size();
-                averageDurations.put(entry.getKey(), averageDuration);
+                if(member.get().membershipStatus == MembershipStatus.SILVER){
+                    dues.put(memberId, (totalWorkoutInHours - 3) * 8);
+                }
+                if(member.get().membershipStatus == MembershipStatus.GOLD) {
+                    dues.put(memberId, (totalWorkoutInHours - 5) * 6);
+                }
             }
         }
-        return averageDurations;
+        return dues;
     }
 }
