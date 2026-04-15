@@ -1,7 +1,5 @@
 package com.alti.course;
 
-import java.util.*;
-
 class Course {
     /* Data about a particular course. */
     public String title;  // The name of the obstacle course

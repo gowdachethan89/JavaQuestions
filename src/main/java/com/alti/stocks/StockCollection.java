@@ -1,6 +1,8 @@
 package com.alti.stocks;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Data for a collection of price records for a particular stock, and methods for

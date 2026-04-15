@@ -2,12 +2,7 @@ package com.practice.smartdesk;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 class SmartDeskManager {
     private final int MAX_HOT_DESKS = 10;

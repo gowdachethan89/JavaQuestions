@@ -1,7 +1,6 @@
 package com.practice.shoppingCart;
 
 
-import com.practice.shoppingCart.ShoppingCartService;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

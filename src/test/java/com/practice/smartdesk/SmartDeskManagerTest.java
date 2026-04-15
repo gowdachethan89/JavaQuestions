@@ -1,13 +1,11 @@
 package com.practice.smartdesk;
 
-import com.practice.smartdesk.BookingResult;
-import com.practice.smartdesk.DeskType;
-import com.practice.smartdesk.SmartDeskManager;
-import com.practice.smartdesk.Tier;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SmartDeskManagerTest {
