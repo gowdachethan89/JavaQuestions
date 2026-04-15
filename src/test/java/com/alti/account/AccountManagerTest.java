@@ -1,10 +1,9 @@
 package com.alti.account;
 
-import org.assertj.core.api.Assert;
-
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AccountManagerTest {
     public static void main(String[] args) {

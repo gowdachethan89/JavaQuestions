@@ -1,4 +1,4 @@
-package com.alti.library;
+package com.practice.library;
 
 class Book {
     int id;
