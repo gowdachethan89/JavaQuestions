@@ -64,29 +64,55 @@ class Membership {
         return averageWorkouts;
     }
 
-    public Map<Integer, Integer> getDuePayments(){
-        Map<Integer, Integer> dues = new HashMap<>();
-        for(Integer memberId: workoutDataMap.keySet()){
-            List<Workout> workouts = workoutDataMap.get(memberId);
-            int totalWorkoutInHours = (int)workouts.stream()
-                    .map(workout ->
-                            Math.ceil((double) (workout.getEndTime() - workout.getStartTime()) /60)
-                    )
-                    .mapToDouble(duration -> duration).sum();
+    /**
+     * Calculates due payments for each member based on their membership tier
+     * and workout history (ordered by workout ID).
+     */
+    public Map<Integer, Integer> getDuePayments() {
+        Map<Integer, Integer> result = new HashMap<>();
 
-            Optional<Member> member = members.stream().filter(m -> m.memberId == memberId).findFirst();
-            if(member.isPresent()){
-                if(member.get().membershipStatus == MembershipStatus.BRONZE){
-                    dues.put(memberId, (totalWorkoutInHours - 1) * 10);
-                }
-                if(member.get().membershipStatus == MembershipStatus.SILVER){
-                    dues.put(memberId, (totalWorkoutInHours - 3) * 8);
-                }
-                if(member.get().membershipStatus == MembershipStatus.GOLD) {
-                    dues.put(memberId, (totalWorkoutInHours - 5) * 6);
-                }
+        for (Member member : members) {
+            int memberId = member.memberId;
+            // Get a copy of workouts to sort without affecting the original list
+            List<Workout> workouts = new ArrayList<>(workoutDataMap.getOrDefault(memberId, new ArrayList<>()));
+
+            // Requirement: Workouts are ordered by their ID
+            workouts.sort(Comparator.comparingInt(Workout::getId));
+
+            int freeWorkoutQuota = 0;
+            int hourlyRate = 0;
+
+            switch (member.membershipStatus) {
+                case BRONZE:
+                    freeWorkoutQuota = 1;
+                    hourlyRate = 10;
+                    break;
+                case SILVER:
+                    freeWorkoutQuota = 3;
+                    hourlyRate = 8;
+                    break;
+                case GOLD:
+                    freeWorkoutQuota = 5;
+                    hourlyRate = 6;
+                    break;
             }
+
+            int totalCost = 0;
+            for (int i = 0; i < workouts.size(); i++) {
+                // Skip the initial free workouts based on membership tier
+                if (i < freeWorkoutQuota) continue;
+
+                Workout w = workouts.get(i);
+                int durationMinutes = w.getDuration();
+
+                // Requirement: Duration rounded up to the nearest hour
+                int hoursCharged = (int) Math.ceil(durationMinutes / 60.0);
+                totalCost += hoursCharged * hourlyRate;
+            }
+
+            result.put(memberId, totalCost);
         }
-        return dues;
+
+        return result;
     }
 }
