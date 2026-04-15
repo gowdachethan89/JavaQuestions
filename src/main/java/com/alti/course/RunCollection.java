@@ -29,4 +29,12 @@ class RunCollection {
         // Returns the best finish time achieved in this RunCollection
         return runs.stream().mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
     }
+
+    public int bestOfBests() {
+        return 0;
+    }
+
+    public double chanceOfPersonalBest(Run run) {
+        return 0.0;
+    }
 }
