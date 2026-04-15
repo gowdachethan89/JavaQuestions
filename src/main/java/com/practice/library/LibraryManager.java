@@ -21,7 +21,7 @@ class LibraryManager {
 
         // BUG 1: Look closely at how we check the member's current loan count
         List<Integer> loans = memberLoans.getOrDefault(memberId, new ArrayList<>());
-        if (loans.size() > MAX_LOANS) {
+        if (loans.size() >= MAX_LOANS) {
             return "LIMIT_REACHED";
         }
 
