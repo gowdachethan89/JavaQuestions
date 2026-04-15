@@ -1,4 +1,4 @@
-package com.alti.smartdesk;
+package com.practice.smartdesk;
 
 class BookingResult {
     public boolean success;

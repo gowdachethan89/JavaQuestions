@@ -1,4 +1,4 @@
-package com.alti.shoppingCart;
+package com.practice.shoppingCart;
 
 import java.util.List;
 

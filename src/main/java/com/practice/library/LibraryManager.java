@@ -1,4 +1,4 @@
-package com.alti.library;
+package com.practice.library;
 
 import java.util.ArrayList;
 import java.util.HashMap;

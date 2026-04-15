@@ -1,4 +1,4 @@
-package com.alti.practice;
+package com.practice.math;
 
 
 import java.util.Arrays;

@@ -1,5 +1,7 @@
-package com.alti.library;
+package com.practice.library;
 
+import com.practice.library.Book;
+import com.practice.library.LibraryManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

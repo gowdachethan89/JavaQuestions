@@ -1,4 +1,4 @@
-package com.alti.smartdesk;
+package com.practice.smartdesk;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
