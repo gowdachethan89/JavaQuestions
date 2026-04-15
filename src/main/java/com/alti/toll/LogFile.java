@@ -53,4 +53,7 @@ class LogFile {
 
     }
 
+    public List<String> catchSpeeders() {
+        return null;
+    }
 }
