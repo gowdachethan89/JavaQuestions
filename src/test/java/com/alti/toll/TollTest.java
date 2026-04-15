@@ -65,50 +65,50 @@ public class TollTest {
 
     @Test
     public void testCatchSpeeders() throws IOException {
-//        System.out.println("Running testCatchSpeeders");
-//
-//        // Test Case 1: No speeders (normal speeds)
-//        // Vehicle travels 10 km in 360 seconds = 100 km/h (safe)
-//        LogFile logFile1 = createTestLogFile(new String[]{
-//                "1000.000 ABC123 100E ENTRY",
-//                "1360.000 ABC123 110E EXIT"
-//        });
-//        assertEquals(0, logFile1.catchSpeeders().size(), "No speeders expected for normal speeds");
-//
-//        // Test Case 2: Single segment violation (≥130 km/h in one segment)
-//        // 10 km in 275 seconds = 130.91 km/h (VIOLATION)
-//        LogFile logFile2 = createTestLogFile(new String[]{
-//                "1000.000 TST001 270W ENTRY",
-//                "1275.000 TST001 280W EXIT"
-//        });
-//        assertEquals(1, logFile2.catchSpeeders().size(), "Should catch speeder exceeding 130 km/h");
-//        assertEquals("TST001", logFile2.catchSpeeders().get(0), "Correct license plate should be flagged");
-//
-//        // Test Case 3: Multiple segments at 120+ km/h (violation if 2+ segments)
-//        // Segment 1: 10 km in 300 sec = 120 km/h
-//        // Segment 2: 10 km in 300 sec = 120 km/h
-//        // Segment 3: 10 km in 400 sec = 90 km/h
-//        LogFile logFile3 = createTestLogFile(new String[]{
-//                "1000.000 TST002 100E ENTRY",
-//                "1300.000 TST002 110E MAINROAD",
-//                "1600.000 TST002 120E MAINROAD",
-//                "2000.000 TST002 130E EXIT"
-//        });
-//        assertEquals(1, logFile3.catchSpeeders().size(),
-//                "Should flag vehicle with 2+ segments at 120+ km/h");
-//        assertEquals("TST002", logFile3.catchSpeeders().get(0), "Correct license plate should be flagged");
-//
-//        // Test Case 4: Multiple journeys - same vehicle speeds in both
-//        LogFile logFile4 = createTestLogFile(new String[]{
-//                "1000.000 TST003 100E ENTRY",
-//                "1275.000 TST003 110E EXIT",      // First journey: 130.91 km/h (VIOLATION)
-//                "2000.000 TST003 200E ENTRY",
-//                "2270.000 TST003 210E EXIT"       // Second journey: 130.91 km/h (VIOLATION)
-//        });
-//        assertEquals(2, logFile4.catchSpeeders().size(),
-//                "Same vehicle with 2 speeding journeys should appear twice");
-//        assertEquals("TST003", logFile4.catchSpeeders().get(0), "First speeding journey");
-//        assertEquals("TST003", logFile4.catchSpeeders().get(1), "Second speeding journey");
+        System.out.println("Running testCatchSpeeders");
+
+        // Test Case 1: No speeders (normal speeds)
+        // Vehicle travels 10 km in 360 seconds = 100 km/h (safe)
+        LogFile logFile1 = createTestLogFile(new String[]{
+                "1000.000 ABC123 100E ENTRY",
+                "1360.000 ABC123 110E EXIT"
+        });
+        assertEquals(0, logFile1.catchSpeeders().size(), "No speeders expected for normal speeds");
+
+        // Test Case 2: Single segment violation (≥130 km/h in one segment)
+        // 10 km in 275 seconds = 130.91 km/h (VIOLATION)
+        LogFile logFile2 = createTestLogFile(new String[]{
+                "1000.000 TST001 270W ENTRY",
+                "1275.000 TST001 280W EXIT"
+        });
+        assertEquals(1, logFile2.catchSpeeders().size(), "Should catch speeder exceeding 130 km/h");
+        assertEquals("TST001", logFile2.catchSpeeders().get(0), "Correct license plate should be flagged");
+
+        // Test Case 3: Multiple segments at 120+ km/h (violation if 2+ segments)
+        // Segment 1: 10 km in 300 sec = 120 km/h
+        // Segment 2: 10 km in 300 sec = 120 km/h
+        // Segment 3: 10 km in 400 sec = 90 km/h
+        LogFile logFile3 = createTestLogFile(new String[]{
+                "1000.000 TST002 100E ENTRY",
+                "1300.000 TST002 110E MAINROAD",
+                "1600.000 TST002 120E MAINROAD",
+                "2000.000 TST002 130E EXIT"
+        });
+        assertEquals(1, logFile3.catchSpeeders().size(),
+                "Should flag vehicle with 2+ segments at 120+ km/h");
+        assertEquals("TST002", logFile3.catchSpeeders().get(0), "Correct license plate should be flagged");
+
+        // Test Case 4: Multiple journeys - same vehicle speeds in both
+        LogFile logFile4 = createTestLogFile(new String[]{
+                "1000.000 TST003 100E ENTRY",
+                "1275.000 TST003 110E EXIT",      // First journey: 130.91 km/h (VIOLATION)
+                "2000.000 TST003 200E ENTRY",
+                "2270.000 TST003 210E EXIT"       // Second journey: 130.91 km/h (VIOLATION)
+        });
+        assertEquals(2, logFile4.catchSpeeders().size(),
+                "Same vehicle with 2 speeding journeys should appear twice");
+        assertEquals("TST003", logFile4.catchSpeeders().get(0), "First speeding journey");
+        assertEquals("TST003", logFile4.catchSpeeders().get(1), "Second speeding journey");
 
         // Test Case 5: Multiple vehicles - only some are speeders
         LogFile logFile5 = createTestLogFile(new String[]{
@@ -145,14 +145,14 @@ public class TollTest {
                 "Should flag vehicle with 130+ km/h in any segment");
         assertEquals("TST004", logFile6Response.get(0), "Correct vehicle flagged");
 
-//        // Test Case 7: Safe driving with multiple segments
-//        // All segments between 100-119 km/h (safe)
-//        LogFile logFile7 = createTestLogFile(new String[]{
-//                "1000.000 TST005 100E ENTRY",
-//                "1360.000 TST005 110E MAINROAD",  // 100 km/h
-//                "1760.000 TST005 120E EXIT"       // 100 km/h
-//        });
-//        assertEquals(0, logFile7.catchSpeeders().size(), "No violation for speeds between 100-119");
+        // Test Case 7: Safe driving with multiple segments
+        // All segments between 100-119 km/h (safe)
+        LogFile logFile7 = createTestLogFile(new String[]{
+                "1000.000 TST005 100E ENTRY",
+                "1360.000 TST005 110E MAINROAD",  // 100 km/h
+                "1760.000 TST005 120E EXIT"       // 100 km/h
+        });
+        assertEquals(0, logFile7.catchSpeeders().size(), "No violation for speeds between 100-119");
     }
 
     /**
