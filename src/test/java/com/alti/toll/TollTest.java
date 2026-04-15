@@ -19,7 +19,7 @@ public class TollTest {
         System.out.println("Running testLogFile");
         try (
                 BufferedReader reader = new BufferedReader(
-                        new FileReader("D:/Workspace/Practice/java/Java Learning/src/test/resources/tollbooth_small.log")
+                        new FileReader("D:/Workspace/Practice/java/src/test/resources/tollbooth_small.log")
                 )
         ) {
             LogFile logFile = new LogFile(reader);
@@ -52,12 +52,12 @@ public class TollTest {
     @Test
     public void testCountJourneys() throws IOException {
         System.out.println("Running testCountJourneys");
-        try (BufferedReader reader = new BufferedReader(new FileReader("D:/Workspace/Practice/java/Java Learning/src/test/resources/tollbooth_small.log"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("D:/Workspace/Practice/java/src/test/resources/tollbooth_small.log"))) {
             LogFile logFile = new LogFile(reader);
             assertEquals(3, logFile.countJourneys());
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("D:/Workspace/Practice/java/Java Learning/src/test/resources/tollbooth_medium.log"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("D:/Workspace/Practice/java/src/test/resources/tollbooth_medium.log"))) {
             LogFile logFile = new LogFile(reader);
             assertEquals(63, logFile.countJourneys());
         }
