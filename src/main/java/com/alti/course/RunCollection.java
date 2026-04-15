@@ -27,11 +27,21 @@ class RunCollection {
 
     public int personalBest() {
         // Returns the best finish time achieved in this RunCollection
-        return runs.stream().mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
+        return runs.stream().filter(run -> run.complete).mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
     }
 
     public int bestOfBests() {
-        return 0;
+        int totalBest = 0;
+        for(int i = 0; i < course.obstacleCount; i++){
+            final int index = i;
+            int minForObstacle = runs.stream()
+                    .filter(r -> r.obstacleTimes.size() > index)
+                    .mapToInt(r -> r.obstacleTimes.get(index))
+                    .min()
+                    .orElse(0);
+            totalBest += minForObstacle;
+        }
+        return totalBest;
     }
 
     public double chanceOfPersonalBest(Run run) {
