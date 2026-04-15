@@ -1,7 +1,6 @@
 package com.alti.course;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class RunCollection {
     public Course course; // the Course this RunCollection is for
@@ -36,7 +35,7 @@ class RunCollection {
             final int index = i;
             int minForObstacle = runs.stream()
                     .filter(r -> r.obstacleTimes.size() > index)
-                    .mapToInt(r -> r.obstacleTimes.get(index))
+                    .mapToInt(r->r.obstacleTimes.get(index))
                     .min()
                     .orElse(0);
             totalBest += minForObstacle;
@@ -45,6 +44,40 @@ class RunCollection {
     }
 
     public double chanceOfPersonalBest(Run run) {
-        return 0.0;
+        int pb = personalBest();
+        if(pb == Integer.MAX_VALUE) return 1.0;
+
+        Map<Integer, List<Integer>> pool = new HashMap<>();
+        for (int i = 0; i < course.obstacleCount; i++) {
+            pool.put(i, new ArrayList<>());
+        }
+
+        for(Run r: runs) {
+            for(int i = 0; i < r.obstacleTimes.size(); i++) {
+                pool.get(i).add(r.obstacleTimes.get(i));
+            }
+        }
+
+        int successCount = 0;
+        int trials = 10000;
+        Random rand = new Random();
+        int currentRunTime = run.getRunTime();
+        int startIdx = run.obstacleTimes.size();
+
+        for(int t = 0; t < trials; t++) {
+            int simulatedTotal = currentRunTime;
+            for(int i = startIdx; i < course.obstacleCount; i++) {
+                List<Integer> options = pool.get(i);
+                if(options.isEmpty()){
+                    simulatedTotal += 0;
+                } else {
+                    simulatedTotal += options.get(rand.nextInt(options.size()));
+                }
+            }
+            if(simulatedTotal <= pb){
+                successCount++;
+            }
+        }
+        return (double)successCount/trials;
     }
 }
