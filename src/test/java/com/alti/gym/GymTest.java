@@ -106,7 +106,8 @@ public class GymTest {
         assertFalse(averageDurations.containsKey(4));
     }
 
-    public static void testGetDuePayments() {
+    @Test
+    public void testGetDuePayments() {
         System.out.println("Running testGetDuePayments");
         // Test get_due_payments function
         Membership testMembership = new Membership();
