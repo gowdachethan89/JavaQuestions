@@ -33,7 +33,7 @@ class Membership {
         int totalPaidMembers = 0;
         for (Member member : members) {
             System.out.println(member.membershipStatus);
-            if (member.membershipStatus == MembershipStatus.GOLD  || member.membershipStatus == MembershipStatus.SILVER) {
+            if (member.membershipStatus == MembershipStatus.GOLD) {
                 totalPaidMembers++;
             }
         }

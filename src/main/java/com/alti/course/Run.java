@@ -32,7 +32,6 @@ class Run {
     public int getRunTime() {
         // Returns the total time this run has taken.
         // If the run is not complete, it returns the time taken so far.
-        System.out.println("Total run : "+obstacleTimes.stream().mapToInt(Integer::intValue).sum());
         return obstacleTimes.stream().mapToInt(Integer::intValue).sum();
     }
 }

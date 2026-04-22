@@ -56,8 +56,6 @@ public class AccountManager {
             if (tx.accountId == accountId) {
                 if (tx.type == TransactionType.CREDIT) {
                     balance += tx.amount;
-                }else {
-                    balance -= tx.amount;
                 }
             }
         }
